@@ -1,0 +1,56 @@
+<!-- frontend_flask/app/templates/dashboard.html -->
+
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Dashboard</h2>
+
+<div class="metrics">
+    <h3>Real-Time Metrics</h3>
+    {% if metrics %}
+        <ul>
+            <li>Total Requests: {{ metrics.total_requests }}</li>
+            <li>Active Connections: {{ metrics.active_connections }}</li>
+            <!-- Add more metrics as needed -->
+        </ul>
+    {% else %}
+        <p>No metrics available.</p>
+    {% endif %}
+</div>
+
+<div class="servers-status">
+    <h3>Backend Servers Status</h3>
+    {% if metrics.servers %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Server ID</th>
+                    <th>IP Address</th>
+                    <th>Port</th>
+                    <th>Active Connections</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for server in metrics.servers %}
+                <tr>
+                    <td>{{ server.id }}</td>
+                    <td>{{ server.ip }}</td>
+                    <td>{{ server.port }}</td>
+                    <td>{{ server.active_connections }}</td>
+                    <td>
+                        {% if server.status == 'up' %}
+                            <span class="status up">Up</span>
+                        {% else %}
+                            <span class="status down">Down</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No server status available.</p>
+    {% endif %}
+</div>
+{% endblock %}

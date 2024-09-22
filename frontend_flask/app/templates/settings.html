@@ -1,0 +1,23 @@
+<!-- frontend_flask/app/templates/settings.html -->
+
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Settings</h2>
+
+<div class="settings-form">
+    <h3>Global Settings</h3>
+    <form method="POST" action="{{ url_for('main.settings') }}">
+        <label for="logging_level">Logging Level:</label>
+        <select id="logging_level" name="logging_level">
+            <option value="INFO" {% if config.logging.level == 'INFO' %}selected{% endif %}>INFO</option>
+            <option value="WARNING" {% if config.logging.level == 'WARNING' %}selected{% endif %}>WARNING</option>
+            <option value="ERROR" {% if config.logging.level == 'ERROR' %}selected{% endif %}>ERROR</option>
+        </select>
+        
+        <!-- Add more settings as needed -->
+        
+        <button type="submit">Update Settings</button>
+    </form>
+</div>
+{% endblock %}

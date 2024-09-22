@@ -1,0 +1,39 @@
+<!-- frontend_flask/app/templates/layout.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>L7 Load Balancer Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</head>
+<body>
+    <header>
+        <h1>L7 Load Balancer Dashboard</h1>
+        <nav>
+            <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('main.rules') }}">Load Balancing Rules</a>
+            <a href="{{ url_for('main.servers') }}">Backend Servers</a>
+            <a href="{{ url_for('main.settings') }}">Settings</a>
+        </nav>
+    </header>
+    
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        
+        {% block content %}
+        {% endblock %}
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 L7 Load Balancer Dashboard</p>
+    </footer>
+</body>
+</html>

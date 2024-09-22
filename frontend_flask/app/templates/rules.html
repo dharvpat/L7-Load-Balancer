@@ -1,0 +1,68 @@
+<!-- frontend_flask/app/templates/rules.html -->
+
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Load Balancing Rules</h2>
+
+<!-- Form to add a new rule -->
+<div class="add-rule">
+    <h3>Add New Rule</h3>
+    <form method="POST" action="{{ url_for('main.rules') }}">
+        <label for="path">Path:</label>
+        <input type="text" id="path" name="path" placeholder="/api/*" required>
+
+        <h4>Servers:</h4>
+        <div class="servers">
+            <div class="server">
+                <input type="text" name="server_id" placeholder="Server ID" required>
+                <input type="text" name="server_ip" placeholder="Server IP" required>
+                <input type="number" name="server_port" placeholder="Port" required>
+                <input type="number" name="server_weight" placeholder="Weight" required>
+            </div>
+            <!-- You can use JavaScript to add more server fields dynamically -->
+        </div>
+
+        <button type="submit">Add Rule</button>
+    </form>
+</div>
+
+<!-- Display existing rules -->
+<div class="existing-rules">
+    <h3>Existing Rules</h3>
+    {% if rules %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Path</th>
+                    <th>Algorithm</th>
+                    <th>Servers</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rule in rules %}
+                <tr>
+                    <td>{{ rule.path }}</td>
+                    <td>{{ rule.algorithm }}</td>
+                    <td>
+                        <ul>
+                            {% for server in rule.servers %}
+                                <li>{{ server.id }} ({{ server.ip }}:{{ server.port }}) - Weight: {{ server.weight }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <form method="POST" action="{{ url_for('main.delete_rule', rule_path=rule.path) }}">
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete this rule?');">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No load balancing rules defined.</p>
+    {% endif %}
+</div>
+{% endblock %}
