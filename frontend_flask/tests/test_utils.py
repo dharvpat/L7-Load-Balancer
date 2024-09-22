@@ -3,6 +3,7 @@
 import unittest
 from unittest.mock import patch
 from app.utils import get_all_rules
+import requests
 
 class TestUtils(unittest.TestCase):
     @patch('app.utils.requests.get')
