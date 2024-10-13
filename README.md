@@ -6,7 +6,6 @@ A comprehensive Layer 7 (L7) Load Balancer Dashboard featuring a high-performanc
 
 - [Features](#features)
 - [Architecture Overview](#architecture-overview)
-- [Directory Structure](#directory-structure)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -39,27 +38,6 @@ The project consists of two main components:
 2. **Flask Frontend** (`frontend_flask/`): Provides a user-friendly web interface for configuring the load balancer, managing backend servers, and viewing real-time metrics. It communicates with the C backend via the exposed APIs.
 
 ---
-
-## Directory Structure
-
-l7-load-balancer-dashboard/
-├── backend_c/
-│   ├── src/
-│   ├── config/
-│   ├── build/
-│   ├── tests/
-│   ├── Makefile
-│   └── README.md
-├── frontend_flask/
-│   ├── app/
-│   ├── config/
-│   ├── tests/
-│   ├── requirements.txt
-│   ├── run.py
-│   └── README.md
-├── docs/
-├── .gitignore
-└── README.md
 
 ## Prerequisites
 
